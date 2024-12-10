@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hospital</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    <%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
+  </head>
+
+  <body class="flex flex-col min-h-screen bg-gray-100 bg-gradient-to-r from-sky-50 to-orange-100"> 
+    <header class="bg-blue-30 shadow-lg">
+      <div class="flex justify-between items-center px-6 py-6">
+        <%= link_to root_path do %>
+          <div class="space-x-2 pl-6 pt-4">
+            <svg class="w-[50px] h-[50px] fill-[blue] font-normal text-blue-950 -ml-[0.8rem] -mt-3 font-lilita text-2xl pr-5" viewBox="0 0 640 512" xmlns="http://www.w3.org/2000/svg">
+              <path d="M483.2 9.6L524 64h92c13.3 0 24 10.7 24 24s-10.7 24-24 24H512c-7.6 0-14.7-3.6-19.2-9.6L468.7 70.3l-47 99.9c-3.7 7.8-11.3 13.1-19.9 13.7s-16.9-3.4-21.7-10.6L339.2 112H216c-13.3 0-24-10.7-24-24s10.7-24 24-24H352c8 0 15.5 4 20 10.7l24.4 36.6 45.9-97.5C445.9 6.2 453.2 1 461.6 .1s16.6 2.7 21.6 9.5zM320 160h12.7l20.7 31.1c11.2 16.8 30.6 26.3 50.7 24.8s37.9-13.7 46.5-32L461.9 160H544c53 0 96 43 96 96V480c0 17.7-14.3 32-32 32s-32-14.3-32-32V448H352 320 64v32c0 17.7-14.3 32-32 32s-32-14.3-32-32V96C0 78.3 14.3 64 32 64s32 14.3 32 32V352H288V192c0-17.7 14.3-32 32-32zm-144 0a80 80 0 1 1 0 160 80 80 0 1 1 0-160z"></path>
+            </svg>
+            <div class="absolute top-7 left-8 pl-8 font-bold text-2xl text-orange-500">
+              <p class="mb-2">Health</p>
+            </div>
+            <div class="absolute top-12 left-8 pl-8 font-bold text-2xl text-orange-500">
+              <p> Cure</p>
+            </div>
+          </div>
+        <% end %>
+  
+        <div class="space-x-2">
+        <% if user_signed_in? %>
+          <%= link_to "Sign out", destroy_user_session_path, data: { "turbo-method": :delete }, class: 'border-2 border-orange-300 text-blue-700 rounded-full py-2 px-6 transition-all duration-300 ease-in-out hover:bg-orange-400 hover:text-white' %>
+        <% else %>
+          <%= link_to 'Sign Up', new_user_registration_path, class: 'border-2 border-orange-300 text-blue-700 rounded-full py-2 px-6 transition-all duration-300 ease-in-out hover:bg-orange-400 hover:text-white' %>
+          <%= link_to 'Log In', new_user_session_path, class: 'border-2 border-orange-300 text-blue-700 rounded-full py-2 px-6 transition-all duration-300 ease-in-out hover:bg-orange-400 hover:text-white' %>
+        <% end %>
+      </div>
+    </header>
+
+    <%= render 'shared/flash' %>
+
+    <main class="flex-1 container mx-auto">
+      <%= yield %>
+    </main>
+    <% if controller_name == 'home' && action_name == 'index' %>
+      <footer class="bg-gray-700 text-white py-1 mt-4">
+        <div class="container mx-auto text-center text-sm">
+          <p>&copy; 2024 Hospital Management System. All rights reserved.</p>
+          <p>Designed by <span class="font-extrabold font-italic underline text-blue-400">Health Cure</span></p>
+        </div>
+      </footer>
+    <% end %>
+  </body>
+</html>

@@ -1,0 +1,69 @@
+<% if user_signed_in? %>
+    <div class="flex w-full -ml-16 h-screen">
+        <div class="w-64 bg-blue-300 text-blue-600 p-4">
+            <h2 class="text-2xl font-semibold mb-6">Hospital</h2>
+           <ul>
+                <li>
+                  <%= link_to "Dashboard", root_path, class: "text-white block py-2 px-4 rounded hover:bg-blue-500" %>
+                </li>
+
+            <% if current_user.receptionist? %>
+                <li>
+                    <%= link_to "Register Patient", new_receptionist_patient_path, class: "text-white block py-2 px-4 rounded hover:bg-blue-500" %>
+                </li>
+                <li>
+                    <%= link_to "Manage Patients", receptionist_patients_path, class: "text-white block py-2 px-4 rounded hover:bg-blue-500" %>
+                </li>
+                <% elsif current_user.doctor? %>
+                <li>
+                    <%= link_to "View Patients", doctor_patients_path, class: "text-white block py-2 px-4 rounded hover:bg-blue-500" %>
+                </li>
+                <li>
+                    <%= link_to "Patient Stats", doctor_patients_graph_path, class: "text-white block py-2 px-4 rounded hover:bg-blue-500" %>
+                </li>
+            <% end %>
+            </ul>
+            <div class="mt-[27rem]">
+                <%= link_to "Logout", destroy_user_session_path, data: { "turbo-method": :delete }, class: "text-white block py-2 px-4 mt-6 rounded bg-red-600 hover:bg-red-500" %>
+            </div>
+        </div>
+
+        <div class="flex-1 p-2 px-2">
+            <div class="max-w-4xl mx-auto">
+                <h1 class="text-xl font-semibold text-orange-400 mb-4">Welcome, <%= current_user.email %>!</h1>
+
+                <% if current_user.receptionist? %>
+                    <div class="pt-4 text-center">
+                          <h2 class="text-4xl font-semibold mb-4">Receptionist Dashboard</h2>
+                          <p class="text-gray-700">You can register new patients and manage their details from here.</p>
+                        <div class="mt-4">
+                          <%= link_to "Register a new Patient", new_receptionist_patient_path, class: "bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600" %>
+                          <%= link_to 'View Patient List', receptionist_patients_path, class: "bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600" %>
+                        </div>
+                    </div>
+                <% elsif current_user.doctor? %>
+                    <div class="pt-4 text-center">
+                          <h2 class="text-4xl font-semibold mb-4">Doctor Dashboard</h2>
+                          <p class="text-gray-700">You can view patient details and check patient statistics from here.</p>
+                        <div class="mt-4">
+                          <%= link_to "View Patient List", doctor_patients_path, class: "bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-500" %>
+                        </div>
+                        <div class="mt-4">
+                          <%= link_to "View Patient Registration Graph", doctor_patients_graph_path, class: "bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-500" %>
+                        </div>
+                    </div>
+                <% end %>
+            </div>
+        </div>
+    </div>
+<% else %>
+  <div class="flex items-center justify-center">
+    <h1 class="text-2xl font-bold text-gray-700">Welcome to HealthCure</h1>
+  </div>
+<% end %>
+
+
+
+
+
+

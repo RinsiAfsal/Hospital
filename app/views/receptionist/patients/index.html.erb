@@ -1,0 +1,42 @@
+
+<div class="mt-6 min-h-screen">
+  <h1 class="text-3xl font-semibold text-center text-gray-800 mb-6">Patients List</h1>
+  <% if @patients.any? %>
+    <div class="overflow-x-auto">
+      <table class="min-w-full table-auto">
+        <thead class="bg-gray-200">
+          <tr>
+            <th class="py-2 px-4 text-left text-gray-600">First Name</th>
+            <th class="py-2 px-4 text-left text-gray-600">Last Name</th>
+            <th class="py-2 px-4 text-left text-gray-600">DOB</th>
+            <th class="py-2 px-4 text-left text-gray-600">Email</th>
+            <th class="py-2 px-4 text-left text-gray-600">Phone</th>
+            <th class="py-2 px-4 text-left text-gray-600">Details</th> <!-- Last Column for Details -->
+          </tr>
+        </thead>
+        <tbody>
+          <% @patients.each do |patient| %>
+            <tr class="border-b hover:bg-gray-100">
+              <td class="py-2 px-4 text-gray-800"><%= patient.first_name %></td>
+              <td class="py-2 px-4 text-gray-800"><%= patient.last_name %></td>
+              <td class="py-2 px-4 text-gray-800"><%= patient.dob.strftime("%B %d, %Y") %></td>
+              <td class="py-2 px-4 text-gray-800"><%= patient.email %></td>
+              <td class="py-2 px-4 text-gray-800"><%= patient.phone %></td>
+              <td class="py-2 px-4">
+                <%= link_to 'View Details', receptionist_patient_path(patient), class: "text-blue-500 hover:underline" %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% else %>
+    <p>No patients found.</p>
+  <% end %>
+  
+  <div class="mt-6">
+    <%= link_to 'Add New Patient', new_receptionist_patient_path, class: "actions ml-[35rem] justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" %>
+  </div>
+</div>
+
+
