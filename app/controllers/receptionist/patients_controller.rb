@@ -16,7 +16,7 @@ class Receptionist::PatientsController < ApplicationController
     if @patient.save
       redirect_to receptionist_patients_path, notice: "Patient was successfully created."
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -32,7 +32,7 @@ class Receptionist::PatientsController < ApplicationController
     if @patient.update(patient_params)
       redirect_to receptionist_patients_path, notice: "Patient was successfully updated."
     else
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 
